@@ -1,6 +1,15 @@
 var app={
 	inicio: function(){
-		
+		this.iniciaBotonos();
+		this.iniciaFastClick();
+		this.iniciaHammer();
+	},
+	
+	iniciaFastClick: function(){
+		FastClick.attach(document.body);
+	},
+	
+	iniciaBotones: function(){		
 		var botonClaro = document.querySelector("#claro");
 		var botonOscuro = document.querySelector("#oscuro");
 		
@@ -8,6 +17,18 @@ var app={
 		botonOscuro.addEventListener("click",this.ponloOscuro,false);
 	},
 	
+	iniciaHammer: function(){
+		var zona = document.getElementById("zona-gestos");
+		var hammertime = new Hammer(zona);
+		
+		hammertime.get("pinch").set({ enable: true });
+		hammertime.get("rotate").set({ enable: true });
+		
+		hammertime.on("tap doubletap pan swipe press pinch rotate", function(ev) {
+			document.querySelector("#info").innerHTML= ev.type+"!";
+		});
+	},
+		
 	ponloClaro: function(){
 		document.body.className = "claro";
 	},
@@ -20,7 +41,6 @@ var app={
 
 if ("addEventListener" in document) {
 	document.addEventListener("DOMContentLoaded", function(){
-		FastClick.attach(document.body);
 		app.inicio();
 	}, false);
 }
