@@ -1,5 +1,6 @@
 var app={
 	inicio: function(){
+		
 		var botonClaro = document.querySelector("#claro");
 		var botonOscuro = document.querySelector("#oscuro");
 		
@@ -16,4 +17,10 @@ var app={
 	},
 
 };
-app.inicio();
+
+if ("addEventListener" in document) {
+	document.addEventListener("DOMContentLoaded", function(){
+		FastClick.attach(document.body);
+		app.inicio();
+	}, false);
+}
